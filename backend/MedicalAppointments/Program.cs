@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MedicalAppointments.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,12 +12,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// JWT Service
+builder.Services.AddScoped<JwtService>();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
 var app = builder.Build();
+app.MapGet("/", () => "API funcionando");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
