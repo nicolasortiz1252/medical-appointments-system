@@ -1,6 +1,8 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 
 
+[Index(nameof(Email), IsUnique = true)]
 public class User
 {
     public int Id { get; set; }
