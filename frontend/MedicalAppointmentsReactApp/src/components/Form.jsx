@@ -1,9 +1,13 @@
 import './Form.css'
 import { useState } from 'react'
 import { login } from '../services/auth';
+import { useAuth } from '../context/AuthContext';
 
 
-export function Form ({ setUser }) {
+export function Form () {
+
+  const {loginUser} = useAuth();
+
   const [name, setName] = useState ("");
   const [pass, setPass] = useState ("");
   const [error, setError] = useState("");
@@ -23,12 +27,7 @@ export function Form ({ setUser }) {
     try {
       const user = await login(name, pass);
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify(user)
-      );
-
-      setUser(user);
+      loginUser(user);
 
     } catch (error) {
       setError(error.message);

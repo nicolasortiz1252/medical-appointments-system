@@ -1,27 +1,20 @@
 import { Form } from './components/Form'
 import { Home } from './components/Home'
-import { useState } from 'react'
+import { useAuth } from './context/AuthContext';
 
 import './App.css'
 
 function App() {
 
-  const [user, setUser] = useState(() => {
-
-    const savedUser = localStorage.getItem("user");
-
-    return savedUser ? JSON.parse(savedUser) : null;
-
-  });
+  const {user} = useAuth();
 
   return (
     <>
-    {
-      user
-        ? <Home user ={user} setUser={setUser} />
-        : <Form setUser={setUser} />
-    }
-      
+      {
+        user
+          ? <Home />
+          : <Form />
+      }
     </>
   )
 }

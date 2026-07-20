@@ -1,18 +1,23 @@
+import { useAuth } from "../context/AuthContext";
 import  "./Home.css";
-export function Home({user, setUser }){
+
+
+export function Home(){
+
+  const {user, logOut: logout} = useAuth();
+
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setUser(null);
+    logout();
 
   }
   return(
     <div className="home-container">
 
-      <h1>Bienvenido, {user.name} </h1>
+      <h1>Bienvenido, {user.firstName} </h1>
 
       <button 
-        onClick={handleLogout} 
+        onClick={logout} 
         className="btn-logout">
           Cerrar Sesion
       </button>
