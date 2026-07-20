@@ -9,7 +9,11 @@ import './App.css'
 
 function App() {
 
-  const {user} = useAuth();
+  const {user, loading} = useAuth();
+
+  if(loading) {
+    return <h1>Cargando...</h1>
+  }
 
   return (
     <Routes>
