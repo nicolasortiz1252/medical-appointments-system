@@ -2,6 +2,7 @@ import { useAuth } from './context/AuthContext';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage';
 import { HomePage } from './pages/HomePage';
+import { ProtectedRoute } from './routes/ProtectedRoute';
 
 
 import './App.css'
@@ -29,9 +30,9 @@ function App() {
       
       <Route path='/home' 
         element={
-          user
-            ? <HomePage />
-            : <Navigate to="/login" replace />
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
         } 
       />
     
