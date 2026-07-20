@@ -4,7 +4,7 @@ import  "./Home.css";
 
 export function Home(){
 
-  const {user, logOut: logout} = useAuth();
+  const {user, logout} = useAuth();
 
 
   const handleLogout = () => {
