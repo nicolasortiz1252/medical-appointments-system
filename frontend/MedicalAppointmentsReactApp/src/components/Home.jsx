@@ -14,7 +14,7 @@ export function Home(){
   return(
     <div className="home-container">
 
-      <h1>Bienvenido, {user.firstName} </h1>
+      <h1>Bienvenido, {user.name} </h1>
 
       <button 
         onClick={logout} 

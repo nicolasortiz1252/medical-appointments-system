@@ -18,6 +18,15 @@ export async function login(username, password) {
     throw new Error("Usuario o Contraseña incorrectos")
   }
 
-  return await response.json();
+  const data = await response.json();
+
+  return {
+    id: data.id,
+    username: data.username,
+    name: `${data.firstName} ${data.lastName}`,
+    email: data.email,
+    image: data.image,
+    token: data.accessToken,
+  };
 
 }
