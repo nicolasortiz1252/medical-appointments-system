@@ -39,6 +39,11 @@ button:hover {
   background: #2563eb;
 }
 
+button:disabled {
+  opacity: 0, 7;
+  cursor: not-allowed;
+}
+
 .error {
   color: red;
   font-size: 0.85rem;

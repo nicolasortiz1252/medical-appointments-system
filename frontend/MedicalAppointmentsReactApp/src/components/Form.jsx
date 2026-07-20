@@ -6,23 +6,34 @@ import { login } from '../services/auth';
 export function Form ({ setUser }) {
   const [name, setName] = useState ("");
   const [pass, setPass] = useState ("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) =>{
     e.preventDefault()
 
     if (name === "" || pass === "") {
-      setError(true);
+      setError("Complete los Campos.");
       return;
     }
 
-    setError(false);
+    setError("");
+    setLoading(true);
 
     try {
       const user = await login(name, pass);
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(user)
+      );
+
       setUser(user);
+
     } catch (error) {
-      setError(true);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
 
   }
@@ -49,9 +60,11 @@ export function Form ({ setUser }) {
        value={pass}
        onChange={e => setPass(e.target.value)}
        /> 
-       <button>Iniciar sesion</button> 
+      <button disabled={loading}>
+        {loading ? "Ingresando" : "Iniciar Sesion"}
+      </button> 
       </form>
-      {error && <p className='error'>Complete los datos o Verifique sus Credenciales</p>}
+      {error && <p className='error'>{error} </p>}
     </section>
   )
 }

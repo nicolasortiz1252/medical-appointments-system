@@ -2,6 +2,7 @@ import  "./Home.css";
 export function Home({user, setUser }){
 
   const handleLogout = () => {
+    localStorage.removeItem("user");
     setUser(null);
 
   }
