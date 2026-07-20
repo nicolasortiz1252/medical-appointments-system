@@ -1,13 +1,20 @@
-export function Home({ setUser }){
+import  "./Home.css";
+export function Home({user, setUser }){
 
   const handleLogout = () => {
-    setUser([]);
+    setUser(null);
 
   }
   return(
     <div className="home-container">
-      <h1>Bienvenido</h1>
-      <button onClick={handleLogout} className="btn-logout">Cerrar Sesion</button>
+
+      <h1>Bienvenido, {user.name} </h1>
+
+      <button 
+        onClick={handleLogout} 
+        className="btn-logout">
+          Cerrar Sesion
+      </button>
     </div>
-  )
+  );
 }

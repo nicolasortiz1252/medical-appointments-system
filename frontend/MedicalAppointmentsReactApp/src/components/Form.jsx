@@ -16,7 +16,9 @@ export function Form ({ setUser }) {
     }
     setError(false);
 
-    setUser ([name]);
+    setUser({
+      name: name
+    });
 
   }
 
@@ -44,8 +46,7 @@ export function Form ({ setUser }) {
        /> 
        <button>Iniciar sesion</button> 
       </form>
-      {error && <p>Complete los Campos</p>}
+      {error && <p className='error'>Complete los Campos</p>}
     </section>
   )
 }
-

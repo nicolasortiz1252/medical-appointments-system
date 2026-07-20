@@ -6,14 +6,14 @@ import './App.css'
 
 function App() {
 
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState(null)
 
   return (
     <>
     {
-      !user.length > 0
-       ? <Form setUser={setUser}/>
-       : <Home setUser={setUser}/>
+      user
+        ? <Home user ={user} setUser={setUser} />
+        : <Form setUser={setUser} />
     }
       
     </>
