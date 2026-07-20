@@ -1,5 +1,6 @@
 import './Form.css'
 import { useState } from 'react'
+import { login } from '../services/auth';
 
 
 export function Form ({ setUser }) {
@@ -7,18 +8,22 @@ export function Form ({ setUser }) {
   const [pass, setPass] = useState ("");
   const [error, setError] = useState(false);
 
-  const handleSubmit = (e) =>{
+  const handleSubmit = async (e) =>{
     e.preventDefault()
 
     if (name === "" || pass === "") {
       setError(true);
       return;
     }
+
     setError(false);
 
-    setUser({
-      name: name
-    });
+    try {
+      const user = await login(name, pass);
+      setUser(user);
+    } catch (error) {
+      setError(true);
+    }
 
   }
 
@@ -46,7 +51,7 @@ export function Form ({ setUser }) {
        /> 
        <button>Iniciar sesion</button> 
       </form>
-      {error && <p className='error'>Complete los Campos</p>}
+      {error && <p className='error'>Complete los datos o Verifique sus Credenciales</p>}
     </section>
   )
 }
