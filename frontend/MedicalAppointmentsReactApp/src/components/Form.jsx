@@ -2,13 +2,16 @@ import './Form.css'
 import { useState } from 'react'
 import { login } from '../services/auth';
 import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 export function Form () {
 
+  const navigate = useNavigate();
+
   const {loginUser} = useAuth();
 
-  const [name, setName] = useState ("");
+  const [username, setUsername] = useState ("");
   const [pass, setPass] = useState ("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false)
@@ -16,7 +19,7 @@ export function Form () {
   const handleSubmit = async (e) =>{
     e.preventDefault()
 
-    if (name === "" || pass === "") {
+    if (username === "" || pass === "") {
       setError("Complete los Campos.");
       return;
     }
@@ -25,9 +28,10 @@ export function Form () {
     setLoading(true);
 
     try {
-      const user = await login(name, pass);
+      const user = await login(username, pass);
 
       loginUser(user);
+      navigate("/home");
 
     } catch (error) {
       setError(error.message);
@@ -49,8 +53,8 @@ export function Form () {
        <input 
        type="text" 
        placeholder='Ingresa tu nombre de Usuario'
-       value={name}
-       onChange={e => setName(e.target.value)}
+       value={username}
+       onChange={e => setUsername(e.target.value)}
        /> 
 
        <input 
