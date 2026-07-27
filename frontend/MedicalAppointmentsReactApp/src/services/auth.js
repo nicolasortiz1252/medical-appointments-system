@@ -1,24 +1,17 @@
 import { apiRequest } from "./api";
 
-  export async function login(username, password) {
+  export async function login(email, password) {
 
     try {
-      const data = await apiRequest("/auth/login", {
+      const data = await apiRequest("/api/Auth/login", {
         method: "POST",
         body: JSON.stringify({
-        username,
-        password,
+        Email: email,
+        Password: password,
         }), 
       });
-
-      return {
-      id: data.id,
-      username: data.username,
-      name: `${data.firstName} ${data.lastName}`,
-      email: data.email,
-      image: data.image,
-      token: data.accessToken,
-      };
+        console.log(data);
+      return data;
       
     } catch(error) {
     throw new Error("Usuario o Contraseña Incorrectos")
