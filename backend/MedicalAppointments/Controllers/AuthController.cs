@@ -21,23 +21,36 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public IActionResult Register(RegisterRequestDto dto)
     {
-        var existingUser = _context.Users
+        var existingEmail = _context.Users
             .FirstOrDefault(u => u.Email == dto.Email);
 
-        if (existingUser != null)
+        if (existingEmail != null)
         {
             return BadRequest("El email ya está registrado");
+        }
+
+        var existingDni = _context.Users
+            .FirstOrDefault(u => u.DNI == dto.DNI);
+
+        if (existingDni != null)
+        {
+            return BadRequest("El DNI ya está registrado");
         }
 
         var user = new User
         {
             Name = dto.Name,
+            LastName = dto.LastName,
+            BirthDate = dto.BirthDate,
+            Address = dto.Address,
+            DNI = dto.DNI,
+            PhoneNumber = dto.PhoneNumber,
             Email = dto.Email,
-            PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password)
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
+            Role = "Patient"
         };
 
         _context.Users.Add(user);
-
         _context.SaveChanges();
 
         return Ok("Usuario registrado");
