@@ -20,18 +20,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
-// 1. Agregar el servicio de CORS configurando tu puerto de Vite
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("PermitirVite", policy =>
-    {
-        policy.WithOrigins("http://localhost:5173") // El puerto de tu frontend
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
-
-
 var app = builder.Build();
 app.MapGet("/", () => "API funcionando");
 
@@ -41,8 +29,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseCors("PermitirVite");
 
 app.UseHttpsRedirection();
 
