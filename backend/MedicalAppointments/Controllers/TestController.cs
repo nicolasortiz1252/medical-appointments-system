@@ -9,6 +9,20 @@ public class TestController : ControllerBase
     [HttpGet]
     public IActionResult Test()
     {
-        return Ok("Tenés acceso porque estás autenticado.");
+        return Ok("Estás autenticado.");
+    }
+
+    [Authorize(Roles = "Patient")]
+    [HttpGet("patient")]
+    public IActionResult PatientTest()
+    {
+        return Ok("Tenés el rol Patient.");
+    }
+
+    [Authorize(Roles = "Admin")]
+    [HttpGet("admin")]
+    public IActionResult AdminTest()
+    {
+        return Ok("Tenés el rol Admin.");
     }
 }
